@@ -4,7 +4,7 @@ import {Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import CustomButton from "../atoms/CustomButton";
 
 const useStyles = makeStyles((theme) => ({
     loginCard: {
@@ -34,10 +34,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%"
     },
     loginButton: {
-        backgroundColor: theme.palette.primary.light,
-        borderRadius: 0,
-        color: theme.palette.common.white,
-        marginTop: "10px"
+
     }
 }));
 
@@ -59,13 +56,11 @@ export default function LoginPage() {
                                 <br/>
                                 <TextField className={classes.textField} id="password" label="Password" required color={"secondary"}/>
                                 <br/>
-                                <Typography className={classes.registerLink}>Don’t have an account yet? Register <a href={"google.ch"} className={classes.link}>here</a></Typography>
+                                <Typography className={classes.registerLink}>Don’t have an account yet? Register <a href={"register"} className={classes.link}>here</a></Typography>
                             </form>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" disableElevation color="primary" className={classes.loginButton}>
-                                Login
-                            </Button>
+                            <CustomButton text={"Login"}/>
                         </Grid>
                     </Grid>
                 </Paper>
