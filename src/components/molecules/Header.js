@@ -8,6 +8,7 @@ import {Grid} from "@material-ui/core";
 const useStyles = makeStyles(() => ({
     header: {
         textAlign: "center",
+        marginBottom: "80px"
     },
     title: {
         fontFamily: ["Righteous", "cursive"].join(","),
