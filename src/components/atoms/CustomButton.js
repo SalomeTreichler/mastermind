@@ -14,7 +14,7 @@ export default function CustomButton(props) {
     const classes = useStyles();
 
     return (
-        <Button variant="contained" disableElevation color="primary" className={classes.button}>
+        <Button variant="contained" disableElevation color="primary" className={classes.button} {...props}>
             {props.text}
         </Button>
     );
