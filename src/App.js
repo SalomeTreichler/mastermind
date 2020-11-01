@@ -1,12 +1,12 @@
 import React, {Fragment} from 'react';
 import Header from './components/molecules/Header';
-import RankingPage from "./components/pages/RankingPage";
+import Router from './Router'
 
 function App() {
     return (
         <Fragment>
             <Header title={"MASTERMIND"}/>
-            <RankingPage/>
+            <Router></Router>
         </Fragment>
     );
 }
