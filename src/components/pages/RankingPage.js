@@ -9,6 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
+import {useHistory} from "react-router";
 
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +35,8 @@ export default function RankingPage() {
     const [value, setValue] = React.useState("EASY");
     const [easyRanks, setEasyRanks] = React.useState([]);
 
+    const history = useHistory();
+
     useEffect(() => {
         axios.get("http://localhost:8081/rank/category/" + value).then(result => {
             setEasyRanks(result.data)
@@ -45,7 +48,7 @@ export default function RankingPage() {
     };
 
     const handleNewGame = () => {
-        //Navigate to game page
+        history.push("/game")
     }
 
     return (

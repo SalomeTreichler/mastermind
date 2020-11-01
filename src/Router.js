@@ -8,6 +8,7 @@ import {
 import LoginPage from "./components/pages/LoginPage";
 import RankingPage from "./components/pages/RankingPage";
 import RegisterPage from "./components/pages/RegisterPage";
+import GamePage from "./components/pages/GamePage";
 
 export default function MastermindRouter() {
     return (
@@ -16,6 +17,9 @@ export default function MastermindRouter() {
                 <Switch>
                     <Route exact path="/">
                         <LoginPage />
+                    </Route>
+                    <Route exact path="/game">
+                        <GamePage />
                     </Route>
                     <Route path="/ranking">
                         <RankingPage />
