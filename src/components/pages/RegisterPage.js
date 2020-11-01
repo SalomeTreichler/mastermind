@@ -13,6 +13,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import {Visibility, VisibilityOff} from "@material-ui/icons";
 import axios from "axios";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
     registerCard: {
@@ -37,9 +39,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegisterPage() {
     const classes = useStyles();
+    const history = useHistory();
 
-    const history = useHistory()
-
+    const [open, setOpen] = React.useState(false);
+    const [username, setUsername] = useState("");
+    const [register, setRegister] = useState(false);
     const [values, setValues] = useState({
         amount: '',
         password: '',
@@ -48,13 +52,18 @@ export default function RegisterPage() {
         showPassword: false,
     });
 
-    const [username, setUsername] = useState("");
-    const [register, setRegister] = useState(false)
-
-
     useEffect(() => {
-        if (register === true) history.push("/login");
-    }, [register])
+        if (register === true) history.push("/");
+    }, [register]);
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    };
+
+
+    const handleCloseSnackbar = (event, reason) => {
+        setOpen(false);
+    };
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -64,14 +73,11 @@ export default function RegisterPage() {
         }).then(result => {
             if (result.status === 200) {
                 setRegister(true)
-            } else if (result.status === 401) {
-
             }
-        }).catch(error => (console.log(error)))
-    }
+        }).catch(error => (setOpen(true)))
+    };
 
-
-    const handleChange = (prop) => (event) => {
+    const handleChangePassword = (prop) => (event) => {
         setValues({...values, [prop]: event.target.value});
     };
 
@@ -79,8 +85,8 @@ export default function RegisterPage() {
         setValues({...values, showPassword: !values.showPassword});
     };
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
+    const handleMouseDownPassword = (e) => {
+        e.preventDefault();
     };
 
     return (
@@ -108,7 +114,7 @@ export default function RegisterPage() {
                                         id="filled-adornment-password"
                                         type={values.showPassword ? 'text' : 'password'}
                                         value={values.password}
-                                        onChange={handleChange('password')}
+                                        onChange={handleChangePassword('password')}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -130,6 +136,11 @@ export default function RegisterPage() {
                                 <CustomButton text={"Register"} type={"submit"}/>
                             </Grid>
                         </form>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                            <Alert onClose={handleCloseSnackbar} severity="error">
+                                Your credentials were incorrect. Try again.
+                            </Alert>
+                        </Snackbar>
                     </Grid>
                 </Paper>
             </Grid>

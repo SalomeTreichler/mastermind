@@ -44,7 +44,9 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage() {
     const classes = useStyles();
     const history = useHistory();
+
     const [username, setUsername] = useState("");
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const [login, setLogin] = useState(false)
     const [values, setValues] = useState({
         amount: '',
@@ -66,14 +68,8 @@ export default function LoginPage() {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
+    const handleCloseSnackbar = (event, reason) => {
+        setOpenSnackbar(false);
     };
 
     function handleSubmit(e) {
@@ -85,22 +81,14 @@ export default function LoginPage() {
             if (result.status === 200) {
                 console.log(result)
                 setLogin(true)
-
-            } else {
-                console.log("hello")
-                return (
-                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                        <Alert onClose={handleClose} severity="success">
-                            This is a success message!
-                        </Alert>
-                    </Snackbar>)
             }
         }).catch(error => {
+            setOpenSnackbar(true)
             console.log(error)
         })
     }
 
-    const handleChange = (prop) => (event) => {
+    const handleChangePassword = (prop) => (event) => {
         setValues({...values, [prop]: event.target.value});
     };
 
@@ -138,7 +126,7 @@ export default function LoginPage() {
                                         id="filled-adornment-password"
                                         type={values.showPassword ? 'text' : 'password'}
                                         value={values.password}
-                                        onChange={handleChange('password')}
+                                        onChange={handleChangePassword('password')}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -164,6 +152,11 @@ export default function LoginPage() {
                                 <CustomButton text={"Login"} type={"submit"}/>
                             </Grid>
                         </form>
+                        <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                            <Alert onClose={handleCloseSnackbar} severity="error">
+                                Choose another Username.
+                            </Alert>
+                        </Snackbar>
                     </Grid>
                 </Paper>
             </Grid>

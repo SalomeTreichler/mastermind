@@ -33,18 +33,19 @@ const difficulties = {
 
 export default function RankingPage() {
     const classes = useStyles();
+
     const [value, setValue] = React.useState("EASY");
     const [easyRanks, setEasyRanks] = React.useState([]);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
 
     useEffect(() => {
         axios.get("http://localhost:8081/rank/category/HARD").then(result => {
             setEasyRanks(result.data)
         })
-    })
+    });
+
+    const handleChangeTabs = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <Grid container alignItems={"center"} justify={"center"} direction={"column"} className={classes.container}
@@ -63,7 +64,7 @@ export default function RankingPage() {
                         value={value}
                         indicatorColor="secondary"
                         textColor="secondary"
-                        onChange={handleChange}
+                        onChange={handleChangeTabs}
                         aria-label="Difficulties"
                     >
                         <Tab label={difficulties.easy} value={difficulties.easy}/>
