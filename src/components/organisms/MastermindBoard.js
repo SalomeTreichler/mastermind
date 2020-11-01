@@ -3,7 +3,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
-import {generateCode, shuffleArray, RGBToHex} from "../../Utils";
+import {generateCode, RGBToHex, calculateScore} from "../../Utils";
+import axios from "axios";
+
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -35,7 +37,9 @@ const colors = [
 export default function MastermindBoard(props) {
     const classes = useStyles();
     let gameHasEnded = false;
-    let generatedColorCode = generateCode(colors, 8, 1, 4);
+    //let generatedColorCode = generateCode(colors, 8, 1, 4);
+    let generatedColorCode = ["#ff6767", "#ff6767", "#ff6767", "#ff6767"]
+    console.log(generatedColorCode)
     const [tryHistory, setTryHistory] = React.useState([]);
 
     let codeRows = [];
@@ -46,27 +50,6 @@ export default function MastermindBoard(props) {
                   className={classes.colorButton} onClick={() => changeColor(elementId)}/>)
     }
 
-    return (
-        <Fragment>
-            <Paper square style={{marginBottom: "20px"}}>
-                <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"} spacing={2}
-                      className={classes.container}>
-                    <Grid item container direction={"row"} justify={"flex-start"} alignItems={"center"}
-                          style={{width: "400px", marginLeft: "25px"}}>
-                        {codeRows}
-                    </Grid>
-                    <Grid item container direction={"row"} justify={"flex-end"} alignItems={"center"}
-                          style={{width: "200px"}}>
-                        <Grid item container style={{width: "60px"}}>
-                            <CheckIcon id={"check"} color={"secondary"} style={{cursor: "pointer"}}
-                                       onClick={() => checkCode()}/>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
-            {tryHistory}
-        </Fragment>
-    );
 
     function changeColor(divId) {
         let currentColor = RGBToHex(document.getElementById(divId).style.backgroundColor);
@@ -98,8 +81,6 @@ export default function MastermindBoard(props) {
                     hints.push(<Grid item style={{backgroundColor: "#e8e8e8"}} className={classes.hint}/>)
                 }
             }
-
-            hints = shuffleArray(hints);
 
             if (!hints.find(hint => hint.props.style.backgroundColor === "#ffffff" || hint.props.style.backgroundColor === "#e8e8e8")) {
                 endGame();
@@ -138,14 +119,51 @@ export default function MastermindBoard(props) {
         setTryHistory([...newHistory]);
     }
 
-    function resetColors(){
-        for (let i = 0; i<4; i++){
-            document.getElementById("codeDiv"+i).style.backgroundColor = colors[0]
+    function resetColors() {
+        for (let i = 0; i < 4; i++) {
+            document.getElementById("codeDiv" + i).style.backgroundColor = colors[0]
         }
     }
 
     function endGame() {
         gameHasEnded = true;
         props.setWinningText("You won!");
+        saveRank();
     }
+
+    function saveRank() {
+        console.log({
+            username: localStorage.getItem("username"),
+            score: calculateScore(tryHistory.length),
+            rank: {id: "1", category: "EASY"}
+        });
+        calculateScore(tryHistory.length)
+        axios.post("http://localhost:8081/rank", {
+            username: localStorage.getItem("username"),
+            score: calculateScore(tryHistory.length),
+            category: {id: "1", name: "EASY"}
+        }).then(result => (console.log(result)))
+    }
+
+    return (
+        <Fragment>
+            <Paper square style={{marginBottom: "20px"}}>
+                <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"} spacing={2}
+                      className={classes.container}>
+                    <Grid item container direction={"row"} justify={"flex-start"} alignItems={"center"}
+                          style={{width: "400px", marginLeft: "25px"}}>
+                        {codeRows}
+                    </Grid>
+                    <Grid item container direction={"row"} justify={"flex-end"} alignItems={"center"}
+                          style={{width: "200px"}}>
+                        <Grid item container style={{width: "60px"}}>
+                            <CheckIcon id={"check"} color={"secondary"} style={{cursor: "pointer"}}
+                                       onClick={() => checkCode()}/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Paper>
+            {tryHistory}
+        </Fragment>
+    );
 };

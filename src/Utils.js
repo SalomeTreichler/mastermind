@@ -39,4 +39,11 @@ export function generateCode(codeArray, max, min, length) {
     return generatedCode;
 }
 
-export default {generateCode, shuffleArray, RGBToHex};
+export function calculateScore(length) {
+    if (length >= 9) {
+        return 1;
+    } else {
+        return 10 - length;
+    }
+}
+
