@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 
 export default function GamePage() {
     const classes = useStyles();
-    const [winningText, setWinningText] = React.useState("");
+    const [winningText, setWinningText] = useState("");
     const history = useHistory();
 
     const handleNewGame = () => {

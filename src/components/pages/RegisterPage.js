@@ -41,7 +41,7 @@ export default function RegisterPage() {
     const classes = useStyles();
     const history = useHistory();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const [username, setUsername] = useState("");
     const [register, setRegister] = useState(false);
     const [values, setValues] = useState({

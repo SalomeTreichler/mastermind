@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, Table, TableBody, TableContainer} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -32,8 +32,8 @@ const difficulties = [{
 export default function RankingPage() {
     const classes = useStyles();
 
-    const [value, setValue] = React.useState("EASY");
-    const [easyRanks, setEasyRanks] = React.useState([]);
+    const [value, setValue] = useState("EASY");
+    const [easyRanks, setEasyRanks] = useState([]);
 
     const history = useHistory();
 

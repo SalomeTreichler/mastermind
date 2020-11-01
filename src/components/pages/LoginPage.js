@@ -46,7 +46,7 @@ export default function LoginPage() {
     const history = useHistory();
 
     const [username, setUsername] = useState("");
-    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     const [login, setLogin] = useState(false)
     const [values, setValues] = useState({
         amount: '',
