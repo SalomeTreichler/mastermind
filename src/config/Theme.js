@@ -15,16 +15,6 @@ const theme = createMuiTheme({
             black: "#000000",
             white: "#ffffff",
             lightgray: "#E8E8E8"
-        },
-        mastermind: {
-            red: "#FF6767",
-            orange: "#FFA767",
-            yellow: "#FFDE67",
-            green: "#D7FF67",
-            cyan: "#67FFED",
-            blue: "#67ADFF",
-            purple: "#9867FF",
-            pink: "#EA67FF"
         }
     },
     typography: {

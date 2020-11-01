@@ -21,12 +21,20 @@ const useStyles = makeStyles(() => ({
     title: {}
 }));
 
-const difficulties = {
-    easy: "EASY",
-    medium: "MEDIUM",
-    hard: "HARD",
-    extreme: "EXTREME"
-}
+const difficulties = [
+    {
+        difficulty: "EASY"
+    },
+    {
+        difficulty: "MEDIUM"
+    },
+    {
+        difficulty: "HARD"
+    },
+    {
+        difficulty: "EXTREME"
+    },
+]
 
 const rankingMockEasy = [
     {
@@ -114,13 +122,13 @@ const rankingMockExtreme = [
 
 function getRankings(category) {
     switch (category) {
-        case difficulties.easy:
+        case "EASY":
             return rankingMockEasy;
-        case difficulties.medium:
+        case "MEDIUM":
             return rankingMockMedium;
-        case difficulties.hard:
+        case "HARD":
             return rankingMockHard;
-        case difficulties.extreme:
+        case "EXTREME":
             return rankingMockExtreme;
         default:
             return [];
@@ -136,6 +144,10 @@ export default function RankingPage() {
         setValue(newValue);
     };
 
+    const handleNewGame = () => {
+        //Navigate to game page
+    }
+
     return (
         <Grid container alignItems={"center"} justify={"center"} direction={"column"} className={classes.container}
               spacing={4}>
@@ -144,7 +156,7 @@ export default function RankingPage() {
                     <Typography variant={"h4"}>Ranking</Typography>
                 </Grid>
                 <Grid item>
-                    <CustomButton text={"New Game"}/>
+                    <CustomButton text={"New Game"} onClick={handleNewGame}/>
                 </Grid>
             </Grid>
             <Grid item style={{width: "75%"}}>
@@ -156,10 +168,9 @@ export default function RankingPage() {
                         onChange={handleChange}
                         aria-label="Difficulties"
                     >
-                        <Tab label={difficulties.easy} value={difficulties.easy}/>
-                        <Tab label={difficulties.medium} value={difficulties.medium}/>
-                        <Tab label={difficulties.hard} value={difficulties.hard}/>
-                        <Tab label={difficulties.extreme} value={difficulties.extreme}/>
+                        {difficulties.map(difficulty => (
+                            <Tab label={difficulty.difficulty} value={difficulty.difficulty}/>
+                        ))}
                     </Tabs>
                 </Paper>
                 <Paper square>
