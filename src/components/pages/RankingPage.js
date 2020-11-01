@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, Table, TableBody, TableContainer} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +8,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import axios from "axios";
+
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -21,126 +23,27 @@ const useStyles = makeStyles(() => ({
     title: {}
 }));
 
-const difficulties = [
-    {
-        difficulty: "EASY"
-    },
-    {
-        difficulty: "MEDIUM"
-    },
-    {
-        difficulty: "HARD"
-    },
-    {
-        difficulty: "EXTREME"
-    },
-]
-
-const rankingMockEasy = [
-    {
-        "id": "1",
-        "username": "salome",
-        "score": 111,
-        "category": {
-            "id": "1",
-            "name": "EASY"
-        }
-    },
-    {
-        "id": "1",
-        "username": "sina",
-        "score": 111,
-        "category": {
-            "id": "1",
-            "name": "EASY"
-        }
-    },
-]
-
-const rankingMockMedium = [
-    {
-        "id": "1",
-        "username": "salome",
-        "score": 222,
-        "category": {
-            "id": "1",
-            "name": "MEDIUM"
-        }
-    },
-    {
-        "id": "1",
-        "username": "sina",
-        "score": 222,
-        "category": {
-            "id": "1",
-            "name": "MEDIUM"
-        }
-    },
-]
-
-const rankingMockHard = [
-    {
-        "id": "1",
-        "username": "salome",
-        "score": 333,
-        "category": {
-            "id": "1",
-            "name": "HARD"
-        }
-    },
-    {
-        "id": "1",
-        "username": "sina",
-        "score": 333,
-        "category": {
-            "id": "1",
-            "name": "HARD"
-        }
-    },
-]
-
-const rankingMockExtreme = [
-    {
-        "id": "1",
-        "username": "salome",
-        "score": 444,
-        "category": {
-            "id": "1",
-            "name": "EXTREME"
-        }
-    },
-    {
-        "id": "1",
-        "username": "sina",
-        "score": 444,
-        "category": {
-            "id": "1",
-            "name": "EXTREME"
-        }
-    },
-]
-
-function getRankings(category) {
-    switch (category) {
-        case "EASY":
-            return rankingMockEasy;
-        case "MEDIUM":
-            return rankingMockMedium;
-        case "HARD":
-            return rankingMockHard;
-        case "EXTREME":
-            return rankingMockExtreme;
-        default:
-            return [];
-    }
+const difficulties = {
+    easy: "EASY",
+    medium: "MEDIUM",
+    hard: "HARD",
+    extreme: "EXTREME"
 }
 
 
 export default function RankingPage() {
     const classes = useStyles();
-    const [value, setValue] = React.useState("EASY");
 
-    const handleChange = (event, newValue) => {
+    const [value, setValue] = React.useState("EASY");
+    const [easyRanks, setEasyRanks] = React.useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8081/rank/category/HARD").then(result => {
+            setEasyRanks(result.data)
+        })
+    });
+
+    const handleChangeTabs = (event, newValue) => {
         setValue(newValue);
     };
 
@@ -165,7 +68,7 @@ export default function RankingPage() {
                         value={value}
                         indicatorColor="secondary"
                         textColor="secondary"
-                        onChange={handleChange}
+                        onChange={handleChangeTabs}
                         aria-label="Difficulties"
                     >
                         {difficulties.map(difficulty => (
@@ -177,8 +80,8 @@ export default function RankingPage() {
                     <TableContainer>
                         <Table>
                             <TableBody>
-                                {getRankings(value).map(ranking => {
-                                    return(<TableRow>
+                                {easyRanks.map(ranking => {
+                                    return (<TableRow>
                                         <TableCell component="th" scope="row">
                                             {ranking.username}
                                         </TableCell>
