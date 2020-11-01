@@ -23,12 +23,9 @@ const useStyles = makeStyles(() => ({
     title: {}
 }));
 
-const difficulties = {
-    easy: "EASY",
-    medium: "MEDIUM",
-    hard: "HARD",
-    extreme: "EXTREME"
-}
+const difficulties = [{
+    difficulty: "EASY"
+}]
 
 
 export default function RankingPage() {
@@ -38,7 +35,7 @@ export default function RankingPage() {
     const [easyRanks, setEasyRanks] = React.useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8081/rank/category/HARD").then(result => {
+        axios.get("http://localhost:8081/rank/category/" + value).then(result => {
             setEasyRanks(result.data)
         })
     });
