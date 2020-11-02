@@ -33,9 +33,11 @@ export function shuffleArray(array) {
 export function generateCode(codeArray, max, min, length) {
     let generatedCode = [];
     for (let i = 0; i < length; i++) {
-        generatedCode.push(codeArray[Math.floor(min + Math.random() * (max - min))]);
+        let rand = Math.floor(min + Math.random() * (max - min));
+        generatedCode.push(codeArray[rand]);
+        codeArray = codeArray.filter(value => value !== codeArray[rand]);
+        max = max - 1;
     }
-
     return generatedCode;
 }
 

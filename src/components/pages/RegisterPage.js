@@ -138,7 +138,7 @@ export default function RegisterPage() {
                         </form>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                             <Alert onClose={handleCloseSnackbar} severity="error">
-                                Your credentials were incorrect. Try again.
+                                Choose another username. This one is already in use.
                             </Alert>
                         </Snackbar>
                     </Grid>

@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
-import {generateCode, RGBToHex, calculateScore} from "../../Utils";
+import {RGBToHex, calculateScore} from "../../Utils";
 import axios from "axios";
 
 
@@ -37,10 +37,8 @@ const colors = [
 export default function MastermindBoard(props) {
     const classes = useStyles();
     let gameHasEnded = false;
-    //let generatedColorCode = generateCode(colors, 8, 1, 4);
-    let generatedColorCode = ["#ff6767", "#ff6767", "#ff6767", "#ff6767"]
-    console.log(generatedColorCode)
     const [tryHistory, setTryHistory] = React.useState([]);
+    const generatedColorCode = props.generatedCode;
 
     let codeRows = [];
     for (let i = 0; i < props.codeLength; i++) {
@@ -70,11 +68,12 @@ export default function MastermindBoard(props) {
                 RGBToHex(document.getElementById("codeDiv3").style.backgroundColor),
             ]
 
+
             let hints = [];
             for (let i = 0; i < colorCode.length; i++) {
                 if (colorCode[i] === generatedColorCode[i]) {
                     hints.push(<Grid item style={{backgroundColor: "#000000"}} className={classes.hint}/>)
-                } else if (colorCode.find((color) => color === generatedColorCode[i])) {
+                } else if (generatedColorCode.find((color) => color === colorCode[i])) {
                     hints.push(<Grid item style={{backgroundColor: "#ffffff", border: "2px solid black"}}
                                      className={classes.hint}/>)
                 } else {
@@ -132,11 +131,6 @@ export default function MastermindBoard(props) {
     }
 
     function saveRank() {
-        console.log({
-            username: localStorage.getItem("username"),
-            score: calculateScore(tryHistory.length),
-            rank: {id: "1", category: "EASY"}
-        });
         calculateScore(tryHistory.length)
         axios.post("http://localhost:8081/rank", {
             username: localStorage.getItem("username"),

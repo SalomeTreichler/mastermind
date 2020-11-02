@@ -78,7 +78,6 @@ export default function LoginPage() {
             password: values.password
         }).then(result => {
             if (result.status === 200) {
-                console.log(result)
                 setLogin(true)
             }
         }).catch(error => {
@@ -153,7 +152,7 @@ export default function LoginPage() {
                         </form>
                         <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
                             <Alert onClose={handleCloseSnackbar} severity="error">
-                                Choose another Username.
+                                Your credentials are incorrect. Try again.
                             </Alert>
                         </Snackbar>
                     </Grid>
