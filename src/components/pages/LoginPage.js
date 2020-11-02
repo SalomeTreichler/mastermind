@@ -60,8 +60,7 @@ export default function LoginPage() {
         if (login === true) {
             history.push("/ranking")
             localStorage.setItem("username", username)
-        }
-        ;
+        }        ;
     }, [login])
 
     function Alert(props) {
