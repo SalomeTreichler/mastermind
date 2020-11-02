@@ -67,7 +67,7 @@ export default function RegisterPage() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post("http://localhost:8080/users/signin", {
+        axios.post("http://localhost:8080/users/signup", {
             username: username,
             password: values.password
         }).then(result => {
