@@ -128,13 +128,13 @@ export default function MastermindBoard(props) {
         gameHasEnded = true;
         props.setWinningText("You won!");
         saveRank();
+        document.getElementById("check-container").innerHTML = '';
     }
 
     function saveRank() {
-        calculateScore(tryHistory.length)
         axios.post("http://localhost:8081/rank", {
             username: localStorage.getItem("username"),
-            score: calculateScore(tryHistory.length),
+            score: calculateScore(tryHistory.length + 1),
             category: {id: "1", name: "EASY"}
         }).then(result => (console.log(result)))
     }
@@ -150,7 +150,7 @@ export default function MastermindBoard(props) {
                     </Grid>
                     <Grid item container direction={"row"} justify={"flex-end"} alignItems={"center"}
                           style={{width: "200px"}}>
-                        <Grid item container style={{width: "60px"}}>
+                        <Grid id={"check-container"} item container style={{width: "60px"}}>
                             <CheckIcon id={"check"} color={"secondary"} style={{cursor: "pointer"}}
                                        onClick={() => checkCode()}/>
                         </Grid>
