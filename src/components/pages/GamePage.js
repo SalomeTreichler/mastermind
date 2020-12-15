@@ -36,11 +36,26 @@ export default function GamePage() {
   const generatedColorCode = generateCode(colors, 8, 1, 4);
 
   const handleNewGame = () => {
-    return <GameDialog open={true} />;
+    return (
+      <GameDialog
+        open={true}
+        onClose={handleClose}
+      />
+    );
   };
 
   const handleBackToRanking = () => {
     history.push("/ranking");
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (

@@ -34,11 +34,6 @@ export default function RankingPage() {
 
   const [value, setValue] = useState("EASY");
   const [easyRanks, setEasyRanks] = useState([]);
-  const [dialogIsOpen, setDialogIsOpen] = React.useState(false);
-
-  const openDialog = () => setDialogIsOpen(true);
-
-  const closeDialog = () => setDialogIsOpen(false);
 
   useEffect(() => {
     axios.get("http://localhost:8081/rank/category/" + value).then((result) => {
@@ -50,8 +45,23 @@ export default function RankingPage() {
     setValue(newValue);
   };
 
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleNewGame = () => {
-    return <GameDialog open={dialogIsOpen} onClose={closeDialog} />;
+    return (
+      <GameDialog
+        open={true}
+        onClose={handleClose}
+      />
+    );
   };
 
   return (
