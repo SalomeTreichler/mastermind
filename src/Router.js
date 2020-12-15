@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import LoginPage from "./components/pages/LoginPage";
 import RankingPage from "./components/pages/RankingPage";
-import RegisterPage from "./components/pages/RegisterPage";
 import GamePage from "./components/pages/GamePage";
 
 export default function MastermindRouter() {
@@ -22,9 +21,6 @@ export default function MastermindRouter() {
                     </Route>
                     <Route path="/ranking">
                         <RankingPage />
-                    </Route>
-                    <Route path="/register">
-                        <RegisterPage />
                     </Route>
                 </Switch>
             </div>
