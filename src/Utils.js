@@ -41,11 +41,11 @@ export function generateCode(codeArray, max, min, length) {
     return generatedCode;
 }
 
-export function calculateScore(length) {
-    if (length >= 9) {
+export function calculateScore(tries) {
+    if (tries >= 9) {
         return 1;
     } else {
-        return 10 - length;
+        return 10 - tries;
     }
 }
 
