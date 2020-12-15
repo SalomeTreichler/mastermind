@@ -30,13 +30,16 @@ export function shuffleArray(array) {
 }
 
 
-export function generateCode(codeArray, max, min, length) {
+export function generateCode(codeArray, max, min, length, reuseColors) {
     let generatedCode = [];
     for (let i = 0; i < length; i++) {
         let rand = Math.floor(min + Math.random() * (max - min));
         generatedCode.push(codeArray[rand]);
-        codeArray = codeArray.filter(value => value !== codeArray[rand]);
         max = max - 1;
+
+        if (!reuseColors){
+            codeArray = codeArray.filter(value => value !== codeArray[rand]);
+        }
     }
     return generatedCode;
 }

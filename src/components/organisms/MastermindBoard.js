@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
-import {RGBToHex, calculateScore} from "../../Utils";
+import {RGBToHex, calculateScore, generateCode, shuffleArray} from "../../Utils";
 import axios from "axios";
 
 
@@ -30,22 +30,42 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const colors = [
-    "#e8e8e8", "#ff6767", "#ffa767", "#ffde67", "#d7ff67", "#67ffed", "#67adff", "#9867ff", "#ea67ff"
-]
-
 export default function MastermindBoard(props) {
     const classes = useStyles();
+    const settings = generateSettings(props.difficulty);
     let gameHasEnded = false;
     const [tryHistory, setTryHistory] = React.useState([]);
-    const generatedColorCode = props.generatedCode;
+
+    const colors = [
+        "#e8e8e8", "#ff6767", "#ffa767", "#ffde67", "#d7ff67", "#67ffed", "#67adff", "#9867ff", "#ea67ff"
+    ]
+    for (let i = 0; i<8-settings.colorAmount; i++){
+        colors.pop();
+    }
+
+    const generatedColorCode = generateCode(colors, settings.colorAmount, 1, settings.codeLength, settings.isMultipleColorCode);
 
     let codeRows = [];
-    for (let i = 0; i < props.codeLength; i++) {
+    for (let i = 0; i < settings.codeLength; i++) {
         const elementId = "codeDiv" + i
         codeRows.push(
             <Grid item style={{backgroundColor: "#e8e8e8", cursor: "pointer"}} id={elementId}
                   className={classes.colorButton} onClick={() => changeColor(elementId)}/>)
+    }
+
+    function generateSettings(difficulty){
+        switch (difficulty){
+            case "easy":
+                return {colorAmount: 8, codeLength: 4, areHintsShuffled: false, isMultipleColorCode: false};
+            case "medium":
+                return {colorAmount: 8, codeLength: 4, areHintsShuffled: true, isMultipleColorCode: false};
+            case "hard":
+                return {colorAmount: 8, codeLength: 6, areHintsShuffled: true, isMultipleColorCode: false};
+            case "extreme":
+                return {colorAmount: 8, codeLength: 6, areHintsShuffled: true, isMultipleColorCode: true};
+            default:
+
+        }
     }
 
 
@@ -79,6 +99,10 @@ export default function MastermindBoard(props) {
                 } else {
                     hints.push(<Grid item style={{backgroundColor: "#e8e8e8"}} className={classes.hint}/>)
                 }
+            }
+
+            if (settings.areHintsShuffled){
+                hints = shuffleArray(hints);
             }
 
             if (!hints.find(hint => hint.props.style.backgroundColor === "#ffffff" || hint.props.style.backgroundColor === "#e8e8e8")) {
