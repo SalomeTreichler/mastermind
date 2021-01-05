@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
 import MastermindBoard from "../organisms/MastermindBoard";
 import {useHistory} from "react-router";
 import {generateCode} from "../../Utils";
+import {useLocation} from "react-router-dom";
+import Header from "../molecules/Header";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -35,9 +38,19 @@ export default function GamePage() {
         history.push("/ranking")
     };
 
+    const handleLogout = () => {
+        history.push("/")
+    }
+
     return (
         <Grid container alignItems={"center"} justify={"center"} direction={"column"} className={classes.container}
               spacing={4}>
+            <Grid container item direction={"row"} justify={"flex-end"} alignItems={"center"}
+                  className={classes.containerItem}>
+                <Grid item>
+                    <Typography onClick={handleLogout} style={{cursor: 'pointer'}}>LOG OUT</Typography>
+                </Grid>
+            </Grid>
             <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"}
                   className={classes.containerItem}>
                 <Grid item>

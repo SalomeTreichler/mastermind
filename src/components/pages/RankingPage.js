@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, Table, TableBody, TableContainer} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import {useHistory} from "react-router";
+import Header from "../molecules/Header";
 
 
 const useStyles = makeStyles(() => ({
@@ -51,9 +52,20 @@ export default function RankingPage() {
         history.push("/game")
     }
 
+
+    const handleLogout = () => {
+        history.push("/")
+    }
+
     return (
         <Grid container alignItems={"center"} justify={"center"} direction={"column"} className={classes.container}
               spacing={4}>
+            <Grid container item direction={"row"} justify={"flex-end"} alignItems={"center"}
+                  className={classes.containerItem}>
+                <Grid item>
+                    <Typography onClick={handleLogout} style={{cursor: 'pointer'}}>LOG OUT</Typography>
+                </Grid>
+            </Grid>
             <Grid container item direction={"row"} justify={"space-between"} className={classes.containerItem}>
                 <Grid item>
                     <Typography variant={"h4"}>Ranking</Typography>
