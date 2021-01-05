@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
-import {RGBToHex, calculateScore} from "../../Utils";
+import {RGBToHex, calculateScore, defaultColors, shuffleArray} from "../../Utils";
 import axios from "axios";
 
 
@@ -30,24 +30,25 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const colors = [
-    "#e8e8e8", "#ff6767", "#ffa767", "#ffde67", "#d7ff67", "#67ffed", "#67adff", "#9867ff", "#ea67ff"
-]
-
 export default function MastermindBoard(props) {
     const classes = useStyles();
+    const settings = props.settings;
+    const generatedColorCode = props.code;
+    const colors = defaultColors;
     let gameHasEnded = false;
     const [tryHistory, setTryHistory] = React.useState([]);
-    const generatedColorCode = props.generatedCode;
+
+    for (let i = 0; i<8-settings.colorAmount; i++){
+        colors.pop();
+    }
 
     let codeRows = [];
-    for (let i = 0; i < props.codeLength; i++) {
+    for (let i = 0; i < settings.codeLength; i++) {
         const elementId = "codeDiv" + i
         codeRows.push(
             <Grid item style={{backgroundColor: "#e8e8e8", cursor: "pointer"}} id={elementId}
                   className={classes.colorButton} onClick={() => changeColor(elementId)}/>)
     }
-
 
     function changeColor(divId) {
         let currentColor = RGBToHex(document.getElementById(divId).style.backgroundColor);
@@ -61,14 +62,10 @@ export default function MastermindBoard(props) {
 
     function checkCode() {
         if (!gameHasEnded) {
-            const colorCode = [
-                RGBToHex(document.getElementById("codeDiv0").style.backgroundColor),
-                RGBToHex(document.getElementById("codeDiv1").style.backgroundColor),
-                RGBToHex(document.getElementById("codeDiv2").style.backgroundColor),
-                RGBToHex(document.getElementById("codeDiv3").style.backgroundColor),
-            ]
-
-
+            let colorCode = []
+            for (let i = 0; i<settings.codeLength; i++){
+                colorCode.push(RGBToHex(document.getElementById("codeDiv" + i).style.backgroundColor))
+            }
             let hints = [];
             for (let i = 0; i < colorCode.length; i++) {
                 if (colorCode[i] === generatedColorCode[i]) {
@@ -79,6 +76,10 @@ export default function MastermindBoard(props) {
                 } else {
                     hints.push(<Grid item style={{backgroundColor: "#e8e8e8"}} className={classes.hint}/>)
                 }
+            }
+
+            if (settings.areHintsShuffled){
+                hints = shuffleArray(hints);
             }
 
             if (!hints.find(hint => hint.props.style.backgroundColor === "#ffffff" || hint.props.style.backgroundColor === "#e8e8e8")) {
@@ -119,7 +120,7 @@ export default function MastermindBoard(props) {
     }
 
     function resetColors() {
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < settings.codeLength; i++) {
             document.getElementById("codeDiv" + i).style.backgroundColor = colors[0]
         }
     }
@@ -135,7 +136,7 @@ export default function MastermindBoard(props) {
         axios.post("http://localhost:8081/rank", {
             username: localStorage.getItem("username"),
             score: calculateScore(tryHistory.length + 1),
-            category: {id: "1", name: "EASY"}
+            category: {id: "1", name: props.difficulty}
         }).then(result => (console.log(result)))
     }
 
