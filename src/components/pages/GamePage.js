@@ -4,6 +4,7 @@ import {Grid} from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
 import MastermindBoard from "../organisms/MastermindBoard";
 import {useHistory} from "react-router";
+import {generateSettings, generateCode, defaultColors} from "../../Utils";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -21,6 +22,8 @@ export default function GamePage() {
     const classes = useStyles();
     const [winningText, setWinningText] = useState("");
     const history = useHistory();
+    const settings = generateSettings("easy");
+    const code = generateCode(defaultColors, settings.colorAmount, 1, settings.codeLength, settings.isMultipleColorCode);
 
     const handleNewGame = () => {
         window.location.reload(false);
@@ -46,7 +49,7 @@ export default function GamePage() {
                 </Grid>
             </Grid>
             <Grid item style={{width: "75%"}}>
-                <MastermindBoard difficulty={"hard"} setWinningText={setWinningText}/>
+                <MastermindBoard settings={settings} code={code} setWinningText={setWinningText}/>
             </Grid>
         </Grid>
     );

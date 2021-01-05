@@ -1,3 +1,7 @@
+export const defaultColors = [
+    "#e8e8e8", "#ff6767", "#ffa767", "#ffde67", "#d7ff67", "#67ffed", "#67adff", "#9867ff", "#ea67ff"
+]
+
 export function RGBToHex(rgb) {
     // Choose correct separator
     let sep = rgb.indexOf(",") > -1 ? "," : " ";
@@ -43,6 +47,22 @@ export function generateCode(codeArray, max, min, length, reuseColors) {
     }
     return generatedCode;
 }
+
+export function generateSettings(difficulty){
+    switch (difficulty){
+        case "easy":
+            return {colorAmount: 8, codeLength: 4, areHintsShuffled: false, isMultipleColorCode: false};
+        case "medium":
+            return {colorAmount: 8, codeLength: 4, areHintsShuffled: true, isMultipleColorCode: false};
+        case "hard":
+            return {colorAmount: 8, codeLength: 6, areHintsShuffled: true, isMultipleColorCode: false};
+        case "extreme":
+            return {colorAmount: 8, codeLength: 6, areHintsShuffled: true, isMultipleColorCode: true};
+        default:
+
+    }
+}
+
 
 export function calculateScore(tries) {
     if (tries >= 9) {
