@@ -4,8 +4,9 @@ import { Grid } from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
 import MastermindBoard from "../organisms/MastermindBoard";
 import { useHistory } from "react-router";
-import { generateCode } from "../../Utils";
+import { generateSettings, generateCode, defaultColors } from "../../Utils";
 import GameDialog from "../molecules/GameDialog";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -22,22 +23,24 @@ export default function GamePage() {
   const classes = useStyles();
   const [winningText, setWinningText] = useState("");
   const history = useHistory();
-  const colors = [
-    "#e8e8e8",
-    "#ff6767",
-    "#ffa767",
-    "#ffde67",
-    "#d7ff67",
-    "#67ffed",
-    "#67adff",
-    "#9867ff",
-    "#ea67ff",
-  ];
-  const generatedColorCode = generateCode(colors, 8, 1, 4);
+  const difficulty = "easy";
+  const settings = generateSettings(difficulty);
+  const code = generateCode(
+    defaultColors,
+    settings.colorAmount,
+    1,
+    settings.codeLength,
+    settings.isMultipleColorCode
+  );
+
   const [open, setOpen] = useState(false);
 
   const handleBackToRanking = () => {
     history.push("/ranking");
+  };
+
+  const handleLogout = () => {
+    history.push("/");
   };
 
   return (
@@ -51,6 +54,20 @@ export default function GamePage() {
         className={classes.container}
         spacing={4}
       >
+        <Grid
+          container
+          item
+          direction={"row"}
+          justify={"flex-end"}
+          alignItems={"center"}
+          className={classes.containerItem}
+        >
+          <Grid item>
+            <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
+              LOG OUT
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid
           container
           item
@@ -74,11 +91,19 @@ export default function GamePage() {
         </Grid>
         <Grid item style={{ width: "75%" }}>
           <MastermindBoard
-            codeLength={4}
+            settings={settings}
+            code={code}
+            difficulty={difficulty}
             setWinningText={setWinningText}
-            generatedCode={generatedColorCode}
           />
         </Grid>
+      </Grid>
+      <Grid item style={{ width: "75%" }}>
+        <MastermindBoard
+          codeLength={4}
+          setWinningText={setWinningText}
+          generatedCode={generatedColorCode}
+        />
       </Grid>
     </Fragment>
   );

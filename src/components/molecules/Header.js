@@ -4,17 +4,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {Grid} from "@material-ui/core";
+import {useHistory} from "react-router";
 
 const useStyles = makeStyles(() => ({
     header: {
         textAlign: "center",
-        marginBottom: "80px"
+        marginBottom: "40px"
     },
     title: {
         fontFamily: ["Righteous", "cursive"].join(","),
         flexGrow: 1,
     },
-    titleContainer:{
+    titleContainer: {
         height: "80px"
     }
 }));
@@ -24,13 +25,18 @@ export default function Header(props) {
 
     return (
         <AppBar position="static" color={"primary"} className={classes.header}>
-            <Grid container alignItems={"center"} justify={"center"} direction={"row"} className={classes.titleContainer}>
-                <Grid item>
+            <Grid container alignItems={"center"} justify={"center"} direction={"row"}
+                  className={classes.titleContainer}>
+                <Grid item xs={4}>
+                </Grid>
+                <Grid item xs={4}>
                     <Toolbar>
                         <Typography variant="h4" className={classes.title}>
                             {props.title}
                         </Typography>
                     </Toolbar>
+                </Grid>
+                <Grid item xs={4}>
                 </Grid>
             </Grid>
         </AppBar>

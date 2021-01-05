@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Table, TableBody, TableContainer } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +9,8 @@ import Tab from "@material-ui/core/Tab";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
+import { useHistory } from "react-router";
+import Header from "../molecules/Header";
 import GameDialog from "../molecules/GameDialog";
 
 const useStyles = makeStyles(() => ({
@@ -25,12 +27,24 @@ const useStyles = makeStyles(() => ({
 
 const difficulties = [
   {
-    difficulty: "EASY",
+    difficulty: "easy",
+  },
+  {
+    difficulty: "medium",
+  },
+  {
+    difficulty: "hard",
+  },
+  {
+    difficulty: "extreme",
   },
 ];
 
 export default function RankingPage() {
   const classes = useStyles();
+
+  const [value, setValue] = useState("easy");
+  const [easyRanks, setEasyRanks] = useState([]);
 
   const [value, setValue] = useState("EASY");
   const [easyRanks, setEasyRanks] = useState([]);
@@ -50,6 +64,10 @@ export default function RankingPage() {
     setOpen(true);
   };
 
+  const handleLogout = () => {
+    history.push("/");
+  };
+
   return (
     <Grid
       container
@@ -63,10 +81,23 @@ export default function RankingPage() {
         container
         item
         direction={"row"}
+        justify={"flex-end"}
+        alignItems={"center"}
+        className={classes.containerItem}
+      >
+        <Grid item>
+          <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
+            LOG OUT
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        item
+        direction={"row"}
         justify={"space-between"}
         className={classes.containerItem}
       >
-        <GameDialog open={open} />
         <Grid item>
           <Typography variant={"h4"}>Ranking</Typography>
         </Grid>
