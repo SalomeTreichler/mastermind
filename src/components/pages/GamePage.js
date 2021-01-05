@@ -35,6 +35,10 @@ export default function GamePage() {
 
   const [open, setOpen] = useState(false);
 
+  const setOpenDialogHandler = () => {
+    setOpen(!open);
+  };
+
   const handleBackToRanking = () => {
     history.push("/ranking");
   };
@@ -44,60 +48,58 @@ export default function GamePage() {
   };
 
   return (
-    <Fragment>
-      <GameDialog open={open} />
+    <Grid
+      container
+      alignItems={"center"}
+      justify={"center"}
+      direction={"column"}
+      className={classes.container}
+      spacing={4}
+    >
+      <GameDialog open={open} setOpen={setOpen} />
       <Grid
         container
+        item
+        direction={"row"}
+        justify={"flex-end"}
         alignItems={"center"}
-        justify={"center"}
-        direction={"column"}
-        className={classes.container}
-        spacing={4}
+        className={classes.containerItem}
       >
-        <Grid
-          container
-          item
-          direction={"row"}
-          justify={"flex-end"}
-          alignItems={"center"}
-          className={classes.containerItem}
-        >
-          <Grid item>
-            <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
-              LOG OUT
-            </Typography>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          item
-          direction={"row"}
-          justify={"space-between"}
-          alignItems={"center"}
-          className={classes.containerItem}
-        >
-          <Grid item>
-            <CustomButton
-              text={"Back to Ranking"}
-              onClick={handleBackToRanking}
-            />
-          </Grid>
-          <Grid item style={{ color: "green" }}>
-            {winningText}
-          </Grid>
-          <Grid item>
-            <CustomButton text={"New Game"} onClick={setOpen(true)} />
-          </Grid>
-        </Grid>
-        <Grid item style={{ width: "75%" }}>
-          <MastermindBoard
-            settings={settings}
-            code={code}
-            difficulty={difficulty}
-            setWinningText={setWinningText}
-          />
+        <Grid item>
+          <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
+            LOG OUT
+          </Typography>
         </Grid>
       </Grid>
-    </Fragment>
+      <Grid
+        container
+        item
+        direction={"row"}
+        justify={"space-between"}
+        alignItems={"center"}
+        className={classes.containerItem}
+      >
+        <Grid item>
+          <CustomButton
+            text={"Back to Ranking"}
+            onClick={handleBackToRanking}
+          />
+        </Grid>
+        <Grid item style={{ color: "green" }}>
+          {winningText}
+        </Grid>
+        <Grid item>
+          <CustomButton text={"New Game"} onClick={setOpenDialogHandler} />
+        </Grid>
+      </Grid>
+      <Grid item style={{ width: "75%" }}>
+        <MastermindBoard
+          settings={settings}
+          code={code}
+          difficulty={difficulty}
+          setWinningText={setWinningText}
+        />
+      </Grid>
+    </Grid>
   );
 }
