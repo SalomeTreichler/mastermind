@@ -1,39 +1,55 @@
 import React from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@material-ui/core";
-import PropTypes from "prop-types";
+import Paper from "@material-ui/core/Paper";
+import Modal from "@material-ui/core/Modal";
+import CustomButton from "../atoms/CustomButton";
+import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 
-export default function GameDialog(props) {
-  const [open, setOpen] = props.open;
+const useStyles = makeStyles(() => ({
+  header: {
+      textAlign: "center",
+      marginBottom: "80px"
+  },
+  title: {
+      fontFamily: ["Righteous", "cursive"].join(","),
+      flexGrow: 1,
+  },
+  titleContainer:{
+      height: "80px"
+  }
+}));
 
+const GameDialog = (props) => {
+  return (
+    <Modal open={props.open} style={{ backgroundColor: "rgba(0,0,0,0,0.7)" }}>
+      {DialogContent(props)}
+    </Modal>
+  );
+};
+
+const DialogContent = (props) => {
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-    >
-      <DialogTitle>Title</DialogTitle>
-      <DialogContent>
-        <DialogContentText>Title 2</DialogContentText>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </DialogContent>
-    </Dialog>
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Paper
+        style={
+          ({ maxWidth: "95vw" }, { maxHeight: "95vh" }, { overflow: "auto" })
+        }
+      >
+        <Typography>Example Dialog</Typography>
+        <CustomButton
+          text="Close"
+          onClick={() => {
+            handleClose();
+          }}
+        ></CustomButton>
+      </Paper>
+    </Grid>
   );
-}
-
-GameDialog.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
 };
+
+export default GameDialog;

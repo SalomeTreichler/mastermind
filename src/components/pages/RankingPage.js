@@ -34,6 +34,7 @@ export default function RankingPage() {
 
   const [value, setValue] = useState("EASY");
   const [easyRanks, setEasyRanks] = useState([]);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:8081/rank/category/" + value).then((result) => {
@@ -45,23 +46,8 @@ export default function RankingPage() {
     setValue(newValue);
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleNewGame = () => {
-    return (
-      <GameDialog
-        open={true}
-        onClose={handleClose}
-      />
-    );
+    setOpen(true);
   };
 
   return (
@@ -80,6 +66,7 @@ export default function RankingPage() {
         justify={"space-between"}
         className={classes.containerItem}
       >
+        <GameDialog open={open} />
         <Grid item>
           <Typography variant={"h4"}>Ranking</Typography>
         </Grid>

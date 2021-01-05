@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
@@ -34,67 +34,52 @@ export default function GamePage() {
     "#ea67ff",
   ];
   const generatedColorCode = generateCode(colors, 8, 1, 4);
-
-  const handleNewGame = () => {
-    return (
-      <GameDialog
-        open={true}
-        onClose={handleClose}
-      />
-    );
-  };
+  const [open, setOpen] = useState(false);
 
   const handleBackToRanking = () => {
     history.push("/ranking");
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <Grid
-      container
-      alignItems={"center"}
-      justify={"center"}
-      direction={"column"}
-      className={classes.container}
-      spacing={4}
-    >
+    <Fragment>
+      <GameDialog open={open} />
       <Grid
         container
-        item
-        direction={"row"}
-        justify={"space-between"}
         alignItems={"center"}
-        className={classes.containerItem}
+        justify={"center"}
+        direction={"column"}
+        className={classes.container}
+        spacing={4}
       >
-        <Grid item>
-          <CustomButton
-            text={"Back to Ranking"}
-            onClick={handleBackToRanking}
+        <Grid
+          container
+          item
+          direction={"row"}
+          justify={"space-between"}
+          alignItems={"center"}
+          className={classes.containerItem}
+        >
+          <Grid item>
+            <CustomButton
+              text={"Back to Ranking"}
+              onClick={handleBackToRanking}
+            />
+          </Grid>
+          <Grid item style={{ color: "green" }}>
+            {winningText}
+          </Grid>
+          <Grid item>
+            <CustomButton text={"New Game"} onClick={setOpen(true)} />
+          </Grid>
+        </Grid>
+        <Grid item style={{ width: "75%" }}>
+          <MastermindBoard
+            codeLength={4}
+            setWinningText={setWinningText}
+            generatedCode={generatedColorCode}
           />
         </Grid>
-        <Grid item style={{ color: "green" }}>
-          {winningText}
-        </Grid>
-        <Grid item>
-          <CustomButton text={"New Game"} onClick={handleNewGame} />
-        </Grid>
       </Grid>
-      <Grid item style={{ width: "75%" }}>
-        <MastermindBoard
-          codeLength={4}
-          setWinningText={setWinningText}
-          generatedCode={generatedColorCode}
-        />
-      </Grid>
-    </Grid>
+    </Fragment>
   );
 }
