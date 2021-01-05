@@ -22,7 +22,8 @@ export default function GamePage() {
     const classes = useStyles();
     const [winningText, setWinningText] = useState("");
     const history = useHistory();
-    const settings = generateSettings("easy");
+    const difficulty = "medium"
+    const settings = generateSettings(difficulty);
     const code = generateCode(defaultColors, settings.colorAmount, 1, settings.codeLength, settings.isMultipleColorCode);
 
     const handleNewGame = () => {
@@ -49,7 +50,7 @@ export default function GamePage() {
                 </Grid>
             </Grid>
             <Grid item style={{width: "75%"}}>
-                <MastermindBoard settings={settings} code={code} setWinningText={setWinningText}/>
+                <MastermindBoard settings={settings} code={code} difficulty={difficulty} setWinningText={setWinningText}/>
             </Grid>
         </Grid>
     );

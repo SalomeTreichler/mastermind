@@ -24,15 +24,25 @@ const useStyles = makeStyles(() => ({
     title: {}
 }));
 
-const difficulties = [{
-    difficulty: "EASY"
-}]
+const difficulties = [
+    {
+        difficulty: "easy"
+    },
+    {
+        difficulty: "medium"
+    },
+    {
+        difficulty: "hard"
+    },
+    {
+        difficulty: "extreme"
+    }]
 
 
 export default function RankingPage() {
     const classes = useStyles();
 
-    const [value, setValue] = useState("EASY");
+    const [value, setValue] = useState("easy");
     const [easyRanks, setEasyRanks] = useState([]);
 
     const history = useHistory();

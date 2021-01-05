@@ -136,7 +136,7 @@ export default function MastermindBoard(props) {
         axios.post("http://localhost:8081/rank", {
             username: localStorage.getItem("username"),
             score: calculateScore(tryHistory.length + 1),
-            category: {id: "1", name: "EASY"}
+            category: {id: "1", name: props.difficulty}
         }).then(result => (console.log(result)))
     }
 
