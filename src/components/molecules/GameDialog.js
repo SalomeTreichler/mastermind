@@ -4,20 +4,19 @@ import Modal from "@material-ui/core/Modal";
 import CustomButton from "../atoms/CustomButton";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
-  header: {
-      textAlign: "center",
-      marginBottom: "80px"
+  box: {
+    minHeight: "100vh",
   },
   title: {
-      fontFamily: ["Righteous", "cursive"].join(","),
-      flexGrow: 1,
+    fontFamily: ["Righteous", "cursive"].join(","),
+    flexGrow: 1,
   },
-  titleContainer:{
-      height: "80px"
-  }
+  titleContainer: {
+    height: "80px",
+  },
 }));
 
 const GameDialog = (props) => {
@@ -29,12 +28,20 @@ const GameDialog = (props) => {
 };
 
 const DialogContent = (props) => {
+  const classes = useStyles();
+
   const handleClose = () => {
     props.setOpen(false);
   };
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
+    <Grid
+      className={classes.box}
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
       <Paper
         style={
           ({ maxWidth: "95vw" }, { maxHeight: "95vh" }, { overflow: "auto" })

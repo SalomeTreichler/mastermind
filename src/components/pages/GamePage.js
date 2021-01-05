@@ -98,13 +98,6 @@ export default function GamePage() {
           />
         </Grid>
       </Grid>
-      <Grid item style={{ width: "75%" }}>
-        <MastermindBoard
-          codeLength={4}
-          setWinningText={setWinningText}
-          generatedCode={generatedColorCode}
-        />
-      </Grid>
     </Fragment>
   );
 }

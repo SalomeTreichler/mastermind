@@ -45,10 +45,9 @@ export default function RankingPage() {
 
   const [value, setValue] = useState("easy");
   const [easyRanks, setEasyRanks] = useState([]);
-
-  const [value, setValue] = useState("EASY");
-  const [easyRanks, setEasyRanks] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     axios.get("http://localhost:8081/rank/category/" + value).then((result) => {
@@ -60,8 +59,8 @@ export default function RankingPage() {
     setValue(newValue);
   };
 
-  const handleNewGame = () => {
-    setOpen(true);
+  const setOpenDialogHandler = () => {
+    setOpen(!open);
   };
 
   const handleLogout = () => {
@@ -77,6 +76,7 @@ export default function RankingPage() {
       className={classes.container}
       spacing={4}
     >
+      <GameDialog open={open} setOpen={setOpen} />
       <Grid
         container
         item
@@ -102,7 +102,7 @@ export default function RankingPage() {
           <Typography variant={"h4"}>Ranking</Typography>
         </Grid>
         <Grid item>
-          <CustomButton text={"New Game"} onClick={handleNewGame} />
+          <CustomButton text={"New Game"} onClick={setOpenDialogHandler} />
         </Grid>
       </Grid>
       <Grid item style={{ width: "75%" }}>
