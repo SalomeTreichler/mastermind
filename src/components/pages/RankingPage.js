@@ -25,20 +25,6 @@ const useStyles = makeStyles(() => ({
     title: {}
 }));
 
-const difficulties = [
-    {
-        difficulty: "easy"
-    },
-    {
-        difficulty: "medium"
-    },
-    {
-        difficulty: "hard"
-    },
-    {
-        difficulty: "extreme"
-    }]
-
 
 export default function RankingPage() {
     const classes = useStyles();
