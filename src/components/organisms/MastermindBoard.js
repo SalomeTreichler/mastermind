@@ -83,7 +83,9 @@ export default function MastermindBoard(props) {
             }
 
             if (!hints.find(hint => hint.props.style.backgroundColor === "#ffffff" || hint.props.style.backgroundColor === "#e8e8e8")) {
-                endGame();
+                endGame("You won!", true);
+            } else if (tryHistory.length + 1 === 10) {
+                endGame("You lost :(", false);
             } else {
                 addTry(colorCode, hints);
                 resetColors();
@@ -125,11 +127,13 @@ export default function MastermindBoard(props) {
         }
     }
 
-    function endGame() {
+    function endGame(message, hasWon) {
         gameHasEnded = true;
-        props.setWinningText("You won!");
-        saveRank();
+        props.setWinningText(message);
         document.getElementById("check-container").innerHTML = '';
+        if (hasWon){
+            saveRank()
+        }
     }
 
     function saveRank() {
