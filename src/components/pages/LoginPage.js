@@ -56,7 +56,7 @@ export default function LoginPage() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.get("http://localhost:8081/rank/isinuse/" + username)
+        axios.get("http://localhost:8080/rank/isinuse/" + username)
             .then(result => {
                 if (result.data) {
                     setOpenSnackbar(true);

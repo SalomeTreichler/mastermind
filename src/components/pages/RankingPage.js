@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Table, TableBody, TableContainer } from "@material-ui/core";
+=======
+import React, {Fragment, useEffect, useState} from 'react';
+import {makeStyles} from "@material-ui/core/styles";
+import {Grid, Table, TableBody, TableContainer} from "@material-ui/core";
+>>>>>>> develop
 import Typography from "@material-ui/core/Typography";
 import CustomButton from "../atoms/CustomButton";
 import Paper from "@material-ui/core/Paper";
@@ -25,6 +31,7 @@ const useStyles = makeStyles(() => ({
   title: {},
 }));
 
+
 export default function RankingPage() {
   const classes = useStyles();
 
@@ -34,9 +41,16 @@ export default function RankingPage() {
 
   const history = useHistory();
 
+<<<<<<< HEAD
   useEffect(() => {
     axios.get("http://localhost:8081/rank/category/" + value).then((result) => {
       setRanks(result.data);
+=======
+    useEffect(() => {
+        axios.get("http://localhost:8080/rank/category/" + value).then(result => {
+            setRanks(result.data)
+        })
+>>>>>>> develop
     });
   });
 
