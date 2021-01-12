@@ -9,6 +9,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import RadioButton from "../atoms/RadioButton";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Formik, Field, Form } from "formik";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -64,34 +65,7 @@ const DialogContent = (props) => {
           justify="center"
           alignItems="center"
         >
-          <FormControl component="fieldset">
-            <RadioGroup
-              row
-              aria-label="position"
-              name="position"
-              value={value}
-              onChange={handleChange}
-            >
-              <FormControlLabel
-                value="top"
-                control={<Radio />}
-                label="Top"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                value="top2"
-                control={<Radio />}
-                label="Top"
-                labelPlacement="bottom"
-              />
-              <FormControlLabel
-                value="top3"
-                control={<Radio />}
-                label="Top"
-                labelPlacement="bottom"
-              />
-            </RadioGroup>
-          </FormControl>
+          {props.children}
         </Grid>
         <Grid
           container
@@ -101,6 +75,7 @@ const DialogContent = (props) => {
           alignItems="center"
         >
           <CustomButton
+            type="submit"
             text="Start Game"
             onClick={() => {
               handleClose();
