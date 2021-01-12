@@ -1,12 +1,13 @@
-import React, { useState, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import React, {useState} from 'react';
+import {makeStyles} from "@material-ui/core/styles";
+import {Grid} from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
 import MastermindBoard from "../organisms/MastermindBoard";
 import { useHistory } from "react-router";
 import { generateSettings, generateCode, defaultColors } from "../../Utils";
 import GameDialog from "../molecules/GameDialog";
 import Typography from "@material-ui/core/Typography";
+import theme from "../../config/Theme";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -23,7 +24,7 @@ export default function GamePage() {
   const classes = useStyles();
   const [winningText, setWinningText] = useState("");
   const history = useHistory();
-  const difficulty = "easy";
+  const difficulty = localStorage.getItem("difficulty");
   const settings = generateSettings(difficulty);
   const code = generateCode(
     defaultColors,
@@ -44,62 +45,36 @@ export default function GamePage() {
   };
 
   const handleLogout = () => {
-    history.push("/");
-  };
-
-  return (
-    <Grid
-      container
-      alignItems={"center"}
-      justify={"center"}
-      direction={"column"}
-      className={classes.container}
-      spacing={4}
-    >
-      <GameDialog open={open} setOpen={setOpen} />
-      <Grid
-        container
-        item
-        direction={"row"}
-        justify={"flex-end"}
-        alignItems={"center"}
-        className={classes.containerItem}
-      >
-        <Grid item>
-          <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
-            LOG OUT
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        item
-        direction={"row"}
-        justify={"space-between"}
-        alignItems={"center"}
-        className={classes.containerItem}
-      >
-        <Grid item>
-          <CustomButton
-            text={"Back to Ranking"}
-            onClick={handleBackToRanking}
-          />
-        </Grid>
-        <Grid item style={{ color: "green" }}>
-          {winningText}
-        </Grid>
-        <Grid item>
-          <CustomButton text={"New Game"} onClick={setOpenDialogHandler} />
-        </Grid>
-      </Grid>
-      <Grid item style={{ width: "75%" }}>
-        <MastermindBoard
-          settings={settings}
-          code={code}
-          difficulty={difficulty}
-          setWinningText={setWinningText}
-        />
-      </Grid>
-    </Grid>
-  );
+    history.push("/")
 }
+
+    return (
+        <Grid container alignItems={"center"} justify={"center"} direction={"column"} className={classes.container}
+              spacing={4}>
+                        <GameDialog open={open} setOpen={setOpen} />
+
+            <Grid container item direction={"row"} justify={"flex-end"} alignItems={"center"}
+                  className={classes.containerItem}>
+                <Grid item>
+                    <Typography onClick={handleLogout} style={{cursor: 'pointer'}}>LOG OUT</Typography>
+                </Grid>
+            </Grid>
+            <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"}
+                  className={classes.containerItem}>
+                <Grid item>
+                    <CustomButton text={"Back to Ranking"} onClick={handleBackToRanking}/>
+                </Grid>
+                <Grid item style={{textAlign: "center"}}>
+                    <Typography style={{color: theme.palette.secondary.main}}>{winningText}</Typography>
+                    <Typography>{difficulty.toUpperCase()}</Typography>
+                </Grid>
+                <Grid item>
+                <CustomButton text={"New Game"} onClick={setOpenDialogHandler} />
+                </Grid>
+            </Grid>
+            <Grid item style={{width: "75%"}}>
+                <MastermindBoard settings={settings} code={code} difficulty={difficulty} setWinningText={setWinningText}/>
+            </Grid>
+        </Grid>
+    );
+};

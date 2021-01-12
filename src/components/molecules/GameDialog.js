@@ -4,10 +4,11 @@ import Modal from "@material-ui/core/Modal";
 import CustomButton from "../atoms/CustomButton";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Radio from "@material-ui/core/Button";
+import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
     overflow: "hidden",
     borderRadius: 0,
     padding: "50px",
-  },
+  }
 }));
 
 const GameDialog = (props) => {
@@ -36,14 +37,18 @@ const GameDialog = (props) => {
 const DialogContent = (props) => {
   const classes = useStyles();
 
-  const [value, setValue] = React.useState("top");
+  const [value, setValue] = React.useState("medium");
+
+  const history = useHistory();
 
   const handleChange = (event) => {
     setValue(event.target.value);
   };
 
   const handleClose = () => {
+    localStorage.setItem("difficulty", value);
     props.setOpen(false);
+    history.push("/game");
   };
 
   return (
@@ -63,7 +68,7 @@ const DialogContent = (props) => {
           justify="center"
           alignItems="center"
         >
-          <FormControl component="fieldset">
+          <FormControl id="form" component="fieldset">
             <RadioGroup
               row
               aria-label="position"
@@ -72,21 +77,27 @@ const DialogContent = (props) => {
               onChange={handleChange}
             >
               <FormControlLabel
-                value="top"
+                value="easy"
                 control={<Radio />}
-                label="Top"
+                label="EASY"
                 labelPlacement="bottom"
               />
               <FormControlLabel
-                value="top2"
+                value="medium"
                 control={<Radio />}
-                label="Top"
+                label="MEDIUM"
                 labelPlacement="bottom"
               />
               <FormControlLabel
-                value="top3"
+                value="hard"
                 control={<Radio />}
-                label="Top"
+                label="HARD"
+                labelPlacement="bottom"
+              />
+              <FormControlLabel
+                value="extreme"
+                control={<Radio />}
+                label="EXTREME"
                 labelPlacement="bottom"
               />
             </RadioGroup>
@@ -102,6 +113,7 @@ const DialogContent = (props) => {
           <CustomButton
             text="Start Game"
             onClick={() => {
+
               handleClose();
             }}
           ></CustomButton>
