@@ -53,10 +53,9 @@ export default function GamePage() {
                 <Grid item>
                     <CustomButton text={"Back to Ranking"} onClick={handleBackToRanking}/>
                 </Grid>
-                <Grid item style={{color: "green"}}>
-                    {winningText}
-                    <br/>
-                    <Typography style={{color: "black"}}>{difficulty.toUpperCase()}</Typography>
+                <Grid item style={{textAlign: "center"}}>
+                    <Typography style={{color: "green"}}>{winningText}</Typography>
+                    <Typography>{difficulty.toUpperCase()}</Typography>
                 </Grid>
                 <Grid item>
                     <CustomButton text={"New Game"} onClick={handleNewGame}/>
