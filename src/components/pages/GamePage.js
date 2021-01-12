@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid} from "@material-ui/core";
 import CustomButton from "../atoms/CustomButton";
@@ -53,8 +53,9 @@ export default function GamePage() {
                 <Grid item>
                     <CustomButton text={"Back to Ranking"} onClick={handleBackToRanking}/>
                 </Grid>
-                <Grid item style={{color: "green"}}>
-                    {winningText}
+                <Grid item style={{textAlign: "center"}}>
+                    <Typography style={{color: "green"}}>{winningText}</Typography>
+                    <Typography>{difficulty.toUpperCase()}</Typography>
                 </Grid>
                 <Grid item>
                     <CustomButton text={"New Game"} onClick={handleNewGame}/>

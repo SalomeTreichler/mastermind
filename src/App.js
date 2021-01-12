@@ -8,7 +8,7 @@ function App() {
         <Fragment>
             <Header title={"MASTERMIND"}/>
             <Button/>
-            <Router></Router>
+            <Router/>
         </Fragment>
     );
 }

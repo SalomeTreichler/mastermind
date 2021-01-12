@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import {useHistory} from "react-router";
+import {difficulties} from "../../Utils";
 
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +44,7 @@ export default function RankingPage() {
     const classes = useStyles();
 
     const [value, setValue] = useState("easy");
-    const [easyRanks, setEasyRanks] = useState([]);
+    const [ranks, setRanks] = useState([]);
 
     const history = useHistory();
 
@@ -93,7 +94,7 @@ export default function RankingPage() {
                         aria-label="Difficulties"
                     >
                         {difficulties.map(difficulty => (
-                            <Tab label={difficulty.difficulty} value={difficulty.difficulty}/>
+                            <Tab label={difficulty} value={difficulty}/>
                         ))}
                     </Tabs>
                 </Paper>
@@ -101,7 +102,7 @@ export default function RankingPage() {
                     <TableContainer>
                         <Table>
                             <TableBody>
-                                {easyRanks.map(ranking => {
+                                {ranks.map(ranking => {
                                     return (<TableRow>
                                         <TableCell component="th" scope="row">
                                             {ranking.username}

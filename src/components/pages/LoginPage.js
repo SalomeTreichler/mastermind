@@ -44,14 +44,13 @@ export default function LoginPage() {
             history.push("/ranking")
             localStorage.setItem("username", username)
         }
-        ;
     }, [login])
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
 
-    const handleCloseSnackbar = (event, reason) => {
+    const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
 
