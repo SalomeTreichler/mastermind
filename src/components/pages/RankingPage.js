@@ -36,7 +36,7 @@ export default function RankingPage() {
 
     useEffect(() => {
         axios.get("http://localhost:8080/rank/category/" + value).then(result => {
-            setEasyRanks(result.data)
+            setRanks(result.data)
         })
     });
 
