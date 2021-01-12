@@ -6,6 +6,7 @@ import MastermindBoard from "../organisms/MastermindBoard";
 import {useHistory} from "react-router";
 import {generateSettings, generateCode, defaultColors} from "../../Utils";
 import Typography from "@material-ui/core/Typography";
+import theme from "../../config/Theme";
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -54,7 +55,7 @@ export default function GamePage() {
                     <CustomButton text={"Back to Ranking"} onClick={handleBackToRanking}/>
                 </Grid>
                 <Grid item style={{textAlign: "center"}}>
-                    <Typography style={{color: "green"}}>{winningText}</Typography>
+                    <Typography style={{color: theme.palette.secondary.main}}>{winningText}</Typography>
                     <Typography>{difficulty.toUpperCase()}</Typography>
                 </Grid>
                 <Grid item>
