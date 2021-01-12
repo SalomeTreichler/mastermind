@@ -1,6 +1,8 @@
 export const defaultColors = [
     "#e8e8e8", "#ff6767", "#ffa767", "#ffde67", "#d7ff67", "#67ffed", "#67adff", "#9867ff", "#ea67ff"
-]
+];
+
+export const difficulties = ["easy","medium", "hard","extreme"];
 
 export function RGBToHex(rgb) {
     // Choose correct separator
@@ -33,7 +35,6 @@ export function shuffleArray(array) {
     return array
 }
 
-
 export function generateCode(codeArray, max, min, length, reuseColors) {
     let generatedCode = [];
     for (let i = 0; i < length; i++) {
@@ -62,7 +63,6 @@ export function generateSettings(difficulty){
 
     }
 }
-
 
 export function calculateScore(tries) {
     if (tries >= 9) {
