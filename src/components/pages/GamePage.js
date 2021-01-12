@@ -23,7 +23,7 @@ export default function GamePage() {
     const classes = useStyles();
     const [winningText, setWinningText] = useState("");
     const history = useHistory();
-    const difficulty = "medium"
+    const difficulty = "easy"
     const settings = generateSettings(difficulty);
     const code = generateCode(defaultColors, settings.colorAmount, 1, settings.codeLength, settings.isMultipleColorCode);
 

@@ -38,7 +38,7 @@ export default function MastermindBoard(props) {
     let gameHasEnded = false;
     const [tryHistory, setTryHistory] = React.useState([]);
 
-    for (let i = 0; i<8-settings.colorAmount; i++){
+    for (let i = 0; i < 8 - settings.colorAmount; i++) {
         colors.pop();
     }
 
@@ -63,7 +63,7 @@ export default function MastermindBoard(props) {
     function checkCode() {
         if (!gameHasEnded) {
             let colorCode = []
-            for (let i = 0; i<settings.codeLength; i++){
+            for (let i = 0; i < settings.codeLength; i++) {
                 colorCode.push(RGBToHex(document.getElementById("codeDiv" + i).style.backgroundColor))
             }
             let hints = [];
@@ -78,7 +78,7 @@ export default function MastermindBoard(props) {
                 }
             }
 
-            if (settings.areHintsShuffled){
+            if (settings.areHintsShuffled) {
                 hints = shuffleArray(hints);
             }
 
@@ -133,10 +133,11 @@ export default function MastermindBoard(props) {
     }
 
     function saveRank() {
-        axios.post("http://localhost:8081/rank", {
+
+        axios.post("http://localhost:8080/rank/create", {
             username: localStorage.getItem("username"),
             score: calculateScore(tryHistory.length + 1),
-            category: {id: "1", name: props.difficulty}
+            category: {name: props.difficulty}
         }).then(result => (console.log(result)))
     }
 

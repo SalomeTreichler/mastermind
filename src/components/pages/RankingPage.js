@@ -10,7 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import {useHistory} from "react-router";
-import Header from "../molecules/Header";
 
 
 const useStyles = makeStyles(() => ({
@@ -49,7 +48,7 @@ export default function RankingPage() {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get("http://localhost:8081/rank/category/" + value).then(result => {
+        axios.get("http://localhost:8080/rank/category/" + value).then(result => {
             setEasyRanks(result.data)
         })
     });
