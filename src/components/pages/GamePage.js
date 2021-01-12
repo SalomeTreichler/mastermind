@@ -21,7 +21,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function GamePage() {
-<<<<<<< HEAD
   const classes = useStyles();
   const [winningText, setWinningText] = useState("");
   const history = useHistory();
@@ -36,14 +35,6 @@ export default function GamePage() {
   );
 
   const [open, setOpen] = useState(false);
-=======
-    const classes = useStyles();
-    const [winningText, setWinningText] = useState("");
-    const history = useHistory();
-    const difficulty = "easy"
-    const settings = generateSettings(difficulty);
-    const code = generateCode(defaultColors, settings.colorAmount, 1, settings.codeLength, settings.isMultipleColorCode);
->>>>>>> develop
 
   const setOpenDialogHandler = () => {
     setOpen(!open);
