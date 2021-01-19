@@ -35,7 +35,7 @@ export default function RankingPage() {
   const history = useHistory();
 
   useEffect(() => {
-    axios.get("http://localhost:8081/rank/category/" + value).then((result) => {
+    axios.get("http://localhost:8080/rank/category/" + value).then((result) => {
       setRanks(result.data);
     });
   });
