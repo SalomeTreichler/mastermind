@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import theme from "../../config/Theme";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
+import PersonIcon from "@material-ui/icons/Person";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -92,13 +93,23 @@ export default function GamePage() {
         container
         item
         direction={"row"}
-        justify={"flex-end"}
+        justify={"space-between"}
         alignItems={"center"}
         className={classes.containerItem}
       >
         <Grid item>
+          <Typography style={{ display: "flex" }}>
+            <PersonIcon
+              color={"secondary"}
+              fontSize={"small"}
+              style={{ marginRight: "10px" }}
+            />
+            {localStorage.getItem("username")}
+          </Typography>
+        </Grid>
+        <Grid item>
           <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
-            LOG OUT
+            Log out
           </Typography>
         </Grid>
       </Grid>

@@ -11,7 +11,8 @@ import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { difficulties } from "../../Utils";
-import GameDialog from "../molecules/GameDialog"
+import GameDialog from "../molecules/GameDialog";
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -66,13 +67,19 @@ export default function RankingPage() {
         container
         item
         direction={"row"}
-        justify={"flex-end"}
+        justify={"space-between"}
         alignItems={"center"}
         className={classes.containerItem}
       >
         <Grid item>
+          <Typography style={{ display: "flex" }}>
+            <PersonIcon color={"secondary"} fontSize={"small"} style={{marginRight: "10px"}}/>
+            {localStorage.getItem("username")}
+          </Typography>
+        </Grid>
+        <Grid item>
           <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
-            LOG OUT
+            Log out
           </Typography>
         </Grid>
       </Grid>
