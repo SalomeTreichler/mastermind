@@ -8,6 +8,7 @@ import { generateSettings, generateCode, defaultColors } from "../../Utils";
 import GameDialog from "../molecules/GameDialog";
 import Typography from "@material-ui/core/Typography";
 import theme from "../../config/Theme";
+import PersonIcon from "@material-ui/icons/Person";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -53,10 +54,18 @@ export default function GamePage() {
               spacing={4}>
                         <GameDialog open={open} setOpen={setOpen} />
 
-            <Grid container item direction={"row"} justify={"flex-end"} alignItems={"center"}
+            <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"}
                   className={classes.containerItem}>
                 <Grid item>
-                    <Typography onClick={handleLogout} style={{cursor: 'pointer'}}>LOG OUT</Typography>
+                    <Typography style={{ display: "flex" }}>
+                        <PersonIcon color={"secondary"} fontSize={"small"} style={{marginRight: "10px"}}/>
+                        {localStorage.getItem("username")}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
+                        Log out
+                    </Typography>
                 </Grid>
             </Grid>
             <Grid container item direction={"row"} justify={"space-between"} alignItems={"center"}
