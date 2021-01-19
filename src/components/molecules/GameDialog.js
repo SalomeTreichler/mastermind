@@ -9,6 +9,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { useHistory } from "react-router";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
     overflow: "hidden",
     borderRadius: 0,
     padding: "50px",
-  }
+  },
 }));
 
 const GameDialog = (props) => {
@@ -78,25 +79,44 @@ const DialogContent = (props) => {
             >
               <FormControlLabel
                 value="easy"
-                control={<Radio />}
+                control={
+                  <Tooltip
+                    title="In this game difficulty there are eight different colours, the code length is four and the hints are in the correct order"
+                    placement="top"
+                  >
+                    <Radio />
+                  </Tooltip>
+                }
                 label="EASY"
                 labelPlacement="bottom"
               />
               <FormControlLabel
                 value="medium"
-                control={<Radio />}
+                control={
+                  <Tooltip title="In this game difficulty there are eight different colours, the code length is four and the hints are in a random order" placement="top">
+                    <Radio />
+                  </Tooltip>
+                }
                 label="MEDIUM"
                 labelPlacement="bottom"
               />
               <FormControlLabel
                 value="hard"
-                control={<Radio />}
+                control={
+                  <Tooltip title="In this game difficulty there are eight different colours, the code length is six and the hints are in a random order" placement="top">
+                    <Radio />
+                  </Tooltip>
+                }
                 label="HARD"
                 labelPlacement="bottom"
               />
               <FormControlLabel
                 value="extreme"
-                control={<Radio />}
+                control={
+                  <Tooltip title="In this game difficulty there are eight different colours, the code length is six, hints are in a random order and each colour can appear more than once" placement="top">
+                    <Radio />
+                  </Tooltip>
+                }
                 label="EXTREME"
                 labelPlacement="bottom"
               />
@@ -113,7 +133,6 @@ const DialogContent = (props) => {
           <CustomButton
             text="Start Game"
             onClick={() => {
-
               handleClose();
             }}
           ></CustomButton>
