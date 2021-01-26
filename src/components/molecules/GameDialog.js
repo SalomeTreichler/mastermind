@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { useHistory } from "react-router";
 import Tooltip from "@material-ui/core/Tooltip";
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles(() => ({
     maxHeight: "95vh",
     overflow: "hidden",
     borderRadius: 0,
-    padding: "50px",
+    padding: "30px 30px 50px 30px",
   },
 }));
 
@@ -52,6 +53,10 @@ const DialogContent = (props) => {
     history.push("/game");
   };
 
+  const closeModal = () => {
+    props.setOpen(false);
+  }
+
   return (
     <Grid
       className={classes.box}
@@ -61,6 +66,9 @@ const DialogContent = (props) => {
       alignItems="center"
     >
       <Paper className={classes.dialogSheet}>
+        <Grid container justify={"flex-end"}>
+          <CloseIcon style={{cursor: "pointer"}} onClick={closeModal}/>
+        </Grid>
         <Grid
           className={classes.content}
           container
