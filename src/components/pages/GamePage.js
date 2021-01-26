@@ -11,6 +11,7 @@ import theme from "../../config/Theme";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
 import PersonIcon from "@material-ui/icons/Person";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -108,8 +109,9 @@ export default function GamePage() {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography onClick={handleLogout} style={{ cursor: "pointer" }}>
+          <Typography style={{display: "flex", cursor: "pointer"}} onClick={handleLogout}>
             Log out
+            <ExitToAppIcon color={"secondary"} fontSize={"small"} style={{marginLeft: "10px"}}/>
           </Typography>
         </Grid>
       </Grid>
